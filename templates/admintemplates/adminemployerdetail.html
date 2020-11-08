@@ -1,0 +1,25 @@
+{% extends 'admintemplates/adminbase.html' %}
+{% block content %}
+<div class="main">
+<h1>AdminEmployerDetail</h1>
+<table class="table">
+	<thead>
+		<tr>
+			<th>EmployerName</th>
+			<th>EmployerAddress</th>
+			<th>Employer mobile</th>
+		</tr>
+
+	</thead>
+	<tbody>
+		<tr>
+			<td>{{adminemployerobject.name}}</td>
+			<td>{{adminemployerobject.address}}</td>
+			<td>{{adminemployerobject.mobile}}</td>
+		</tr>
+	</tbody>
+	
+
+</table>
+</div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'employertemplates/employerbase.html' %}
+{% block content %}
+<div class="container">
+	<h3>Job Details</h3>
+	<p><strong>Title: </strong>{{jobobject.title}} </p>
+	<p><strong>Job Level: </strong>{{jobobject.level}} </p>
+	<p><strong>Experience: </strong>{{jobobject.experience}} </p>
+	<p><strong>Salary: </strong>{{jobobject.salary}} </p>
+	<p><strong>Skills: </strong>{{jobobject.skills}} </p>
+	<p><strong>Created On: </strong>{{jobobject.created_at}} </p>
+	<p><strong>Category: </strong>{{jobobject.category}} </p>
+	<p><strong>Deadline: </strong>{{jobobject.deadline}} </p>
+	<p><strong>No. of Vaccancies: </strong>{{jobobject.vaccncy_number}} </p>
+	<p><strong>Details: </strong>{{jobobject.details}} </p>
+
+	<h3>Job Application for this job</h3>
+	<table class='table'>
+		<thead>
+			<tr>
+				<th>SN</th>
+				<th>Applicant</th>
+				<th>Applied on</th>
+				<th>Documents submitted</th>
+			<tr>
+		</thead>
+		<tbody>
+			{% for application in jobobject.jobapplication_set.all %}
+			<tr>
+				<td>{{forloop.counter}}</td>
+				<td>{{application.jobseeker}}</td>
+				<td>{{application.created_at}}</td>
+				<td>
+					<button class="btn btn-warning"> <a href="{{application.jobseeker.cv.url}}" download>Download
+							Cv</a></button>
+					<button class="btn btn-warning"><a href="{{application.cover_letter.url}}" download>Download
+							coverletter</a></button>
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+{% endblock %}

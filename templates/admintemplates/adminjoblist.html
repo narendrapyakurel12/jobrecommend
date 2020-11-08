@@ -1,0 +1,30 @@
+{% extends 'admintemplates/adminbase.html' %}
+{% block content %}
+<h1>JobList</h1>
+<table class="table">
+	<thead>
+		<tr>
+			<th>Sn</th>
+			<th>JobTitle</th>
+			<th>Image</th>
+		
+		</tr>
+
+		
+
+	</thead>
+	<tbody>
+		{% for job in jobobject %}
+		<tr>
+			<td>{{forloop.counter}}</td>
+			<td><a href="{% url 'jobapp:adminjobdetail' job.id %}">{{job.title}}</td>
+			<td><img src="{{job.image.url}}" width="200"></td>
+			
+		</tr>
+		{% endfor %}
+	</tbody>
+	
+
+</table>
+
+{% endblock %}

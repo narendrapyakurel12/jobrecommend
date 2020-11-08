@@ -1,0 +1,23 @@
+{% extends 'admintemplates/adminbase.html' %}
+{% block content %}
+<h1>JobDetail</h1>
+<table class="table">
+	<thead>
+		<tr>
+			<th>Title</th>
+			<th>Image</th>
+			<th>Type</th>
+			<th>Level</th>
+		</tr>
+
+	</thead>
+	<tbody>
+	<td>{{jobdetailobject.title}}</td>
+	<td><img src="{{jobdetailobject.image.url}}" width="200"></td>
+	<td>{{jobdetailobject.job_type}}</td>
+	<td>{{jobdetailobject.level}}</td>
+
+	</tbody>
+	
+</table>
+{% endblock %}

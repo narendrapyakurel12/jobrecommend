@@ -1,0 +1,28 @@
+
+{% extends 'admintemplates/adminbase.html' %}
+{% block content %}
+<div class="main">
+<h1>Employer Detail</h1>
+<table class="table">
+	<thead>
+		<tr>
+			<th>Sn</th>
+			<th>Employer Name:</th>
+			<th>Employer mobile:</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for employer in adminemployer %}
+		<tr>
+			<td>{{forloop.counter}}</td>
+			<td><a href="{% url 'jobapp:adminemployerdetail' employer.id %}">{{employer.name}}</a></td>
+				<td>{{employer.mobile}}</td>
+			
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% load static %}
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="{% static 'jobseekerstatic/css/bootstrap.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'adminstatic/style.css' %}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	{% block css %}
+
+	{% endblock %}
+</head>
+<body>
+
+<div class="sidenav">
+  <a href="{% url 'jobapp:adminemployerlist' %}">Employer</a>
+  <a href="#services">Services</a>
+  <a href="#clients">Clients</a>
+  <a href="#contact">Contact</a>
+  <button class="dropdown-btn">Dropdown 
+    <i class="fa fa-caret-down"></i>
+  </button>
+  <div class="dropdown-container">
+    <a href="#">Link 1</a>
+    <a href="#">Link 2</a>
+    <a href="#">Link 3</a>
+  </div>
+  <a href="#contact">Search</a>
+</div>
+
+	
+
+{% block content %}
+{% endblock %}
+<script
+  src="https://code.jquery.com/jquery-3.4.0.min.js"
+  integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
+  crossorigin="anonymous"></script>
+{% block js %}
+{% endblock  %}
+
+</body>
+</html>

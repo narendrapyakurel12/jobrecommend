@@ -1,0 +1,115 @@
+{% extends 'jobseekertemplates/base.html' %}
+{% block title %}Search Results{% endblock %}
+{% block css %}
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+
+    <h2>Search Available Job</h2>
+
+    <form action="{% url 'jobapp:search' %} " method="GET">
+        <div class="form-group row">
+            <div class="col-xs-6">
+                <input class="form-control" placeholder="Search Job by title,Category" aria-label="Search"
+                    name="search">
+            </div>
+            <div class="col-xs-4">
+                <input class="form-control" placeholder="Location" aria-label="Search" name="location">
+            </div>
+            <button class="btn btn-success" type="submit" classs="validate" name="submit" value="Search">Search</button>
+        </div>
+
+    </form>
+
+    {% if submits == 'Search' and request.GET.location == "" and request.GET.search == "" %}
+
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        You can search jobs on the basis of <strong>Job Title and Location.</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    {% endif %}
+    
+    <br>
+    <br>
+
+    {% if submits == 'Search' and request.GET.search != "" %}
+    {% for search in results %}
+
+    <div class="card mb-3 shadow p-3 mb-5 bg-white rounded">
+        <h5 class="card-header">{{search.title}}</h5>
+        <div class="row no-gutters">
+            <div class="col-md-3">
+                <img src="{{search.image.url}}" style="margin-left: 25px; margin-top: 15px;" height="200" width="200">
+            </div>
+            <div class="col-md-9">
+                <div class=" "></div>
+                <h5 class="card-title"><i class="fas fa-building"
+                        style="padding-right:15px;"></i>{{search.employer.name}}
+                </h5>
+
+                <p class="card-text"><i class="fas fa-map-marker-alt" style="padding-right:15px;"></i> Location:
+
+                    {{search.employer.address}}</p>
+                <p class="card-text"><i class="fas fa-clock" style="padding-right:15px;"></i>Job
+                    Type:{{search.job_type}}
+                </p>
+                <p class="card-text"><i class="fas fa-brain"
+                        style="padding-right:15px;"></i>Experience:{{search.experience}}
+                </p>
+
+
+                <p class="card-text"><i class="fas fa-money-check-alt" style="padding-right:15px;"></i>Salary:
+                    {{search.salary}}
+                </p>
+
+
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#{{search.id}}">
+                    Details
+                </button>
+                <div class="modal fade" id="{{search.id}}" data-backdrop="static" data-keyboard="false" tabindex="-1"
+                    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">{{search.title}}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Company Name: <small>{{search.employer.name}}</small></p>
+                                <p>Address: <small>{{search.employer.address}}</small></p>
+                                <p>Salary: <small>{{search.salary}}</small></p>
+                                <p>Job Type: <small>{{search.job_type}}</small></p>
+                                <p>Description: <small>{{search.details}}small></p>
+                                <p>Education: <small>{{search.education}}</small></p>
+                                <p>Career level: <small>{{search.level}}</small></p>
+                                <p>Experience: <small>{{search.experience}}</small></p>
+                                <p>Qualification; <small>{{search.employer.qualification}}</small></p>
+                                <p>Last Date to Apply: <small>{{search.deadline}}|</small></p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <a href="{% url 'jobapp:jobseekerjobapply' search.id %}">Apply</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        {% empty %}
+        <h1>result is not found</h1>
+
+        {% endfor %}
+
+
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

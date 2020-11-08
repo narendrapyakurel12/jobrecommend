@@ -1,0 +1,22 @@
+{% extends 'admintemplates/adminbase.html' %}
+{% block content %}
+<h1>JobSeekeerDetailView</h1>
+<table class="table">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Address</th>
+			<th>Mobile</th>
+			<th>Skills</th>
+		</tr>
+	</thead>
+	<tbody>
+		<td>{{jobseekerdetailobject.name}}</td>
+		<td>{{jobseekerdetailobject.address}}</td>
+		<td>{{jobseekerdetailobject.mobile}}</td>
+		<td>{{jobseekerdetailobject.skills}}</td>
+
+	</tbody>
+	
+</table>
+{% endblock %}

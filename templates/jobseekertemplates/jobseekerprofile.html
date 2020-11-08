@@ -1,0 +1,48 @@
+{% extends 'jobseekertemplates/base.html' %}
+{% block title %}My Profile{% endblock %}
+{% block content %}
+<div class="container">
+	<h3>My Profile</h3>
+	<hr>
+	<div class="row">
+		<div class="col-md-4"><img src="{{jobseeker.image.url}}" alt="" class="img-fluid"></div>
+		<div class="col-md-8 mx-auto">
+			<h4>Username:{{jobseeker}}</h4>
+			<p>Full Name:{{jobseeker.name}}</p>
+			<p>Email: {{jobseeker.email}}</p>
+			<p>Address: {{jobseeker.address}}</p>
+			<p>Mobile: {{jobseeker.mobile}}</p>
+			<p>Qualification: {{jobseeker.qualification}}</p>
+			<p>Skills: {{jobseeker.skills}}</p>
+			<p>About: {{jobseeker.sbout}}</p>
+			<p>CV: {{jobseeker.cv}}</p>
+
+			<button class="btn btn-warning"><a href="{% url 'jobapp:jobseekerprofileupdate' jobseeker.id %}">UpdateProfile</a></button>
+		</div>
+		<h3>Applied Job</h3> 
+		<hr>
+		<table class='table'>
+			<thead>
+				<tr>
+					<th>SN</th>
+					<th>JobTitle</th>
+					<th>Company</th>
+					<th>Date</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for jobapplication in jobseeker.jobapplication_set.all %}
+				<tr>
+					<td>{{forloop.counter}}</td>
+					<td>{{jobapplication.job.title}}</td>
+					<td>{{jobapplication.job.employer.compnay}}</td>
+					<td>{{jobapplication.created_at}}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+
+
+{% endblock %}

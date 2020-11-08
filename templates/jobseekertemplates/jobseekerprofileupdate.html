@@ -1,0 +1,25 @@
+{% extends 'jobseekertemplates/base.html' %}
+{% block title %}Profile Update{% endblock %}
+{% block content %}
+<div class="container">
+	<h3 style="margin-left: 40%;">Update profile</h3>
+	<br>
+	<form method="post" enctype="multipart/form-data" style="margin-left: 30%;">
+		{% csrf_token %}
+		{% for field in form %}
+		<div class="form-group col-md-8">
+			<label for="{{ field.id_for_label}}" class="label">{{ field.label }}</label>
+			{{ field }}
+		</div>
+		{% if field.errors %}
+		<li class="alert alert-warning alert-dismissible fade show" role="alert">
+			<strong>{{field.label}}</strong>&nbsp;{{field.errors|striptags}}
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button></li>
+		{% endif %}
+		{% endfor %}
+		<button class="btn btn-primary">Update</button>
+	</form>
+</div>
+{% endblock %}

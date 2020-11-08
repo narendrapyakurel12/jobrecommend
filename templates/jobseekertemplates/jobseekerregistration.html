@@ -1,0 +1,31 @@
+{% extends 'jobseekertemplates/base.html' %}
+{% block title %}Registration{% endblock %}
+
+{% block content %}
+
+<div class="container border">
+  <h3 style="margin-left: 30%;">Registration Page for JobSeekers</h3>
+  <form method="post" enctype="multipart/form-data" style="margin-left: 30%;">
+    {% csrf_token %}
+    {% for field in form %}
+    <div class="form-group col-md-8">
+      <label for="{{ field.id_for_label}}" class="label">{{ field.label }}</label>
+      {{ field }}
+    </div>
+    {% if field.errors %}
+    <li class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong>{{field.label}}</strong>&nbsp;{{field.errors|striptags}}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button></li>
+    {% endif %}
+    {% endfor %}
+    <button type="submit" class="btn btn-primary">Register</button>
+  </form>
+
+  <div class="d-flex justify-content-center links">
+    Already have an account? <a href="{% url 'jobapp:jobseekerlogin' %}" class="ml-2">Sign In</a>
+  </div>
+</div>
+
+{% endblock %}
