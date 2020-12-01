@@ -1,13 +1,17 @@
 {% extends 'employertemplates/employerbase.html' %}
+{% block title %}My Profile{% endblock %}
 {% block content %}
 <br>
 <div class="container mx-auto">
 	<div class="row">
 		<div class="col-md-4">
-			<img src="{{employer.image.url}}" alt="" class="img-fluid">
+			
+			<img src="{{employer.company_image.url}}" alt="" class="img-fluid">
+			
 		</div>
 		<div class="col-md-8">
-			<h3>{{employer.name}}</h3>
+			<h3>Username: {{employer.user}}</h3>
+			<p><strong>Name: </strong>{{employer.name}} </p>
 			<p><strong>Email: </strong>{{employer.email}} </p>
 			<p><strong>Address: </strong>{{employer.address}} </p>
 			<p><strong>Contact: </strong>{{employer.mobile}} </p>
@@ -17,6 +21,7 @@
 					href="{% url 'jobapp:employerprofileupdate' employer.id %}">Update Profile</a></button>
 		</div>
 	</div>
+	<br>
 	<table class='table'>
 		<thead>
 			<tr>

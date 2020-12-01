@@ -12,7 +12,9 @@
 	<p><strong>Deadline: </strong>{{jobobject.deadline}} </p>
 	<p><strong>No. of Vaccancies: </strong>{{jobobject.vaccncy_number}} </p>
 	<p><strong>Details: </strong>{{jobobject.details}} </p>
-
+	<button class=" btn btn-success"><a
+		href="{% url 'jobapp:employerjobupdate' jobobject.id %}">Update</a></button>
+	<br><br>
 	<h3>Job Application for this job</h3>
 	<table class='table'>
 		<thead>

@@ -25,6 +25,8 @@ urlpatterns = [
          name='employerjobcreate'),
     path('employer/profile/<int:pk>/update',
          EmployerProfileUpdateView.as_view(), name='employerprofileupdate'),
+    path('employer/job/<int:pk>/update',
+         EmployerJobUpdateView.as_view(), name='employerjobupdate'),
     path('job-admin/', AdminHomeView.as_view(), name='adminhome'),
     path('admin/employer/list/', AdminEmployerListView.as_view(),
          name='adminemployerlist'),

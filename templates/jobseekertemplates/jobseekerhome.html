@@ -1,25 +1,30 @@
 {% extends 'jobseekertemplates/base.html' %}
 {% block title %}Job Portal{% endblock %}
 {% block css %}
-
+<script>
+    modal - body p {
+        word - wrap: break-word;
+    }
+</script>
 {% endblock %}
 
 {% block content %}
 
-
-
 <main>
     <div class="container">
+        <br><br>
         <h2>Search Available Job</h2>
         <form action="{% url 'jobapp:search' %} " method="GET" value="{{request.GET.search}}{{request.GET.location}}">
-            <div class="form-group row">
-                <div class="col-xs-6">
-                    <input class="form-control" placeholder="Search Job by title" aria-label="Search" name="search">
+            <div class="form-row">
+                <div class="col-md-4">
+                    <input class="form-control" placeholder="Search Job by title,Category" aria-label="Search"
+                        name="search">
                 </div>
-                <div class="col-xs-4">
+                <div class="col-md-4">
                     <input class="form-control" placeholder="Location" aria-label="Search" name="location">
                 </div>
-                <button class="btn btn-success" type="submit" name="submit" value="Search">Search</button>
+                <button class="btn btn-success" type="submit" classs="validate" name="submit"
+                    value="Search">Search</button>
             </div>
 
         </form>
@@ -32,7 +37,7 @@
                 <tr>
                     <th scope="col">Job Title</th>
                     <th scope="col">Company Name</th>
-                    <th scope="col">Skill Level</th>
+                    <th scope="col">Skill</th>
                     <th scope="col">Location</th>
                     <th></th>
                 </tr>
@@ -55,7 +60,7 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="staticBackdropLabel">{{job.title}}Django Developer
+                                        <h5 class="modal-title" id="staticBackdropLabel">{{job.title}}
                                         </h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
@@ -66,7 +71,8 @@
                                         <p>Address: <small>{{job.employer.address}}</small></p>
                                         <p>Salary: <small>{{job.salary}}</small></p>
                                         <p>Job Type: <small>{{job.job_type}}</small></p>
-                                        <p>Description: <small>{{job.details}}</small></p>
+                                        <p style=" word-wrap: break-word;">Description: <small>{{job.details}}</small>
+                                        </p>
                                         <p>Education: <small>{{job.education}}</small></p>
                                         <p>Career level: <small>{{job.level}}</small></p>
                                         <p>Experience: <small>{{job.experience}}</small></p>
@@ -89,50 +95,36 @@
 
             </tbody>
         </table>
+        <div class="text-center">
+            <button class="btn btn-primary center"><a href=""></a> Load More Posts</button>
+        </div>
     </div>
+    <br>
 
-    <div class="container mt-5">
-        <h4 class="text-center">Top Hiring Companies</h4>
-        <div class="card-deck">
-
-            <div class="card">
-                <!-- image to be placed later-->
-
-                <div class="card-body">
-                    <h5 class="card-title"></h5>
-                    <h7 class="card-text"></h7>
-                    <p></p>
-                </div>
-                <div class="card-footer">
-                    <a href="" class="text-muted">Read More</a>
+    <div class="container">
+        <h3 class="text-center">Top Hiring Companies</h3> <br><br>
+        <div class="row row-cols-1 row-cols-md-3">
+            {% for employer in employers %}
+            <div class="col mb-4 col-md-3">
+                <div class="card h-100">
+                    <img src="{{ employer.company_image.url}}" class="card-img-top"
+                        style="height: 150px; object-fit: contain;" alt="...">
+                    <div class="card-body">
+                        <h6 class="card-title">{{ employer.name }}</h6>
+                        <p class="card-text">Address: {{ employer.address }}</p>
+                        <p class="card-text">Contact: {{ employer.mobile }}</p>
+                        <p class="card-text">Website: {{ employer.website }}</p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">Details</small>
+                        
+                    </div>
                 </div>
             </div>
-
-            <!--
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Company Name</h5>
-                    <h7 class="card-text">Company Address</h7>
-                    <p>Contact Details</p>
-                </div>
-                <div class="card-footer">
-                    <a href="" class="text-muted">Read More</a>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Company Name</h5>
-                    <h7 class="card-text">Company Address</h7>
-                    <p>Contact Details</p>
-                </div>
-                <div class="card-footer">
-                    <a href="" class="text-muted">Read More</a>
-                </div>
-            </div>
+            {% endfor %}
         </div>
-        -->
-        </div>
-
+    </div>
+    <br><br>
 </main>
 
 {% endblock %}

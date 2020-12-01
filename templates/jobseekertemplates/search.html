@@ -10,12 +10,12 @@
     <h2>Search Available Job</h2>
 
     <form action="{% url 'jobapp:search' %} " method="GET">
-        <div class="form-group row">
-            <div class="col-xs-6">
+        <div class="form-row">
+            <div class="col-md-4">
                 <input class="form-control" placeholder="Search Job by title,Category" aria-label="Search"
                     name="search">
             </div>
-            <div class="col-xs-4">
+            <div class="col-md-4">
                 <input class="form-control" placeholder="Location" aria-label="Search" name="location">
             </div>
             <button class="btn btn-success" type="submit" classs="validate" name="submit" value="Search">Search</button>

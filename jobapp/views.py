@@ -35,6 +35,7 @@ class JobseekerHomeView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['jobcategorys'] = JobCategory.objects.all()
+        context['employers'] = Employer.objects.all()
 
         context['jobs'] = Job.objects.all().order_by('-id')
         return context
@@ -232,6 +233,20 @@ class EmployerProfileUpdateView(EmployerRequiredMixin, UpdateView):
         return super().form_valid(form)
 
 
+class EmployerJobUpdateView(EmployerRequiredMixin, UpdateView):
+    template_name = 'employertemplates/employerjobupdate.html'
+    form_class = EmployerJobUpdateForm
+    model = Job
+    success_url = reverse_lazy('jobapp:employerjobdetail')
+
+    def form_valid(self, form):
+        user = self.request.user
+        print(user)
+        form.save()
+
+        return super().form_valid(form)
+
+
 class AdminHomeView(AdminRequiredMixin, TemplateView):
     template_name = 'admintemplates/adminhome.html'
 
@@ -273,7 +288,7 @@ class AdminJobListView(ListView):
     model = Job
     context_object_name = 'jobobject'
 
-    
+
 class AdminJobDetailView(DetailView):
     template_name = 'admintemplates/adminjobdetail.html'
     model = Job

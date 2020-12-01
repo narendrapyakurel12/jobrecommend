@@ -40,7 +40,7 @@ class Employer(TimeStamp):
     image = models.ImageField(upload_to='employer')
     website = models.CharField(max_length=100)
     compnay = models.CharField(max_length=100)
-    company_image = models.ImageField(upload_to='employer')
+    company_image = models.ImageField(upload_to='employer/')
 
     def save(self, *args, **kwargs):
         group, created = Group.objects.get_or_create(name='employer')
