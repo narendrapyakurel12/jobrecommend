@@ -2,10 +2,10 @@ from django.views.generic import *
 from django.shortcuts import render, redirect
 from django.db.models import Q
 from django.urls import reverse, reverse_lazy
-
 from .models import *
 from .forms import *
 from django.contrib.auth import authenticate, login, logout
+from django.core.paginator import Paginator
 
 
 class EmployerRequiredMixin(object):
@@ -172,6 +172,10 @@ class AdminLoginView(FormView):
         return super().form_valid(form)
 
 
+class CVBuilderView(TemplateView):
+    template_name = "jobseekertemplates/cv_builder.html"
+
+
 class EmployerRegistrationView(CreateView):
     template_name = 'employertemplates/employerregistration.html'
     form_class = EmployerForm
@@ -314,4 +318,25 @@ class SearchView(TemplateView):
 
         context['results'] = result
 
+        return context
+
+
+class JobView(TemplateView):
+    template_name = 'jobseekertemplates/job.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        jobs = Job.objects.all().order_by('-id')
+        paginator = Paginator(jobs, 3)
+        context['jobs'] = jobs
+
+        return context
+
+
+class CompanyView(TemplateView):
+    template_name = 'jobseekertemplates/company.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['companies'] = Employer.objects.all().order_by('-id')
         return context

@@ -1,0 +1,26 @@
+{% extends 'jobseekertemplates/base.html' %}
+{% block title %}All Jobs{% endblock %}
+
+{% block content %}
+<main class="container">
+  <h3 class="mt-5 mb-5"> All Jobs Available</h3>
+  {% for job in jobs %}
+  <div class="card-deck mt-5">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{job.title}}</h5>
+        <p class="card-text">
+          Job Description: {{job.details}}
+        </p>
+        <p class="card-text">Company Name:{{job.employer.name}} </p>
+        <p class="card-text">Skill Level: {{job.level}}</p>
+        <p class="card-text">Last Date: {{job.deadline}}</p>
+      </div>
+      <div class="card-footer">
+        <small class="text-muted"><a href="">Details</a></small>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</main>
+{% endblock %}

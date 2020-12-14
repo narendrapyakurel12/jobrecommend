@@ -2,6 +2,7 @@ from django.urls import path
 from .views import *
 app_name = 'jobapp'
 urlpatterns = [
+     # jobseekers
     path('', JobseekerHomeView.as_view(), name='jobseekerhome'),
     path('jobseeker/registration/',
          JobSeekerRegistrationView.as_view(), name='jobseekerregistration'),
@@ -12,6 +13,9 @@ urlpatterns = [
          name='jobseekerjobapply'),
     path('jobseeker/profile/', JobSeekerProfileView.as_view(),
          name='jobseekerprofile'),
+    path('jobseeker/cv_builder', CVBuilderView.as_view(), name="cv_builder"),
+
+    #employer
     path('employer/registration', EmployerRegistrationView.as_view(),
          name='employerregistration'),
     path('employer/home/', EmployerHomeView.as_view(), name='employerhome'),
@@ -27,6 +31,8 @@ urlpatterns = [
          EmployerProfileUpdateView.as_view(), name='employerprofileupdate'),
     path('employer/job/<int:pk>/update',
          EmployerJobUpdateView.as_view(), name='employerjobupdate'),
+
+         #admin
     path('job-admin/', AdminHomeView.as_view(), name='adminhome'),
     path('admin/employer/list/', AdminEmployerListView.as_view(),
          name='adminemployerlist'),
@@ -40,5 +46,9 @@ urlpatterns = [
     path('admin/job/<int:pk>/detail/',
          AdminJobDetailView.as_view(), name='adminjobdetail'),
     path('logout/', LogoutView.as_view(), name='logout'),
+
+    #for all
     path('search/', SearchView.as_view(), name='search'),
+    path('alljob/', JobView.as_view(), name='alljob'),
+    path('allcompany/', CompanyView.as_view(), name='allcompany'),
 ]

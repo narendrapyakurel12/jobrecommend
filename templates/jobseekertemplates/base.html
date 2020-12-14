@@ -31,10 +31,10 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="">Jobs</a>
+                    <a class="nav-link text-dark" href="{% url 'jobapp:alljob' %}">Jobs</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="">Company</a>
+                    <a class="nav-link text-dark" href="{% url 'jobapp:allcompany' %}">Company</a>
                 </li>
 
                 {% if request.user.is_authenticated %}

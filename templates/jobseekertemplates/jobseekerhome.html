@@ -1,11 +1,6 @@
 {% extends 'jobseekertemplates/base.html' %}
 {% block title %}Job Portal{% endblock %}
 {% block css %}
-<script>
-    modal - body p {
-        word - wrap: break-word;
-    }
-</script>
 {% endblock %}
 
 {% block content %}
@@ -23,11 +18,14 @@
                 <div class="col-md-4">
                     <input class="form-control" placeholder="Location" aria-label="Search" name="location">
                 </div>
-                <button class="btn btn-success" type="submit" classs="validate" name="submit"
+                <button class="btn btn-success" type="submit" class="validate" name="submit"
                     value="Search">Search</button>
             </div>
-
         </form>
+        <div>
+            <button class="btn btn-info"><a href="{% url 'jobapp:cv_builder' %}"> Build Resume</a></button>
+        </div>
+
     </div>
 
     <div class="container mt-5 mb-5 pt-3">
@@ -96,7 +94,7 @@
             </tbody>
         </table>
         <div class="text-center">
-            <button class="btn btn-primary center"><a href=""></a> Load More Posts</button>
+            <button class="btn btn-primary center"><a href="{% url 'jobapp:alljob' %}">Load More Posts</a> </button>
         </div>
     </div>
     <br>

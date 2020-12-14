@@ -1,0 +1,33 @@
+{% extends 'jobseekertemplates/base.html' %} {% block title %}All
+Company{%endblock %} {% block content %}
+<div class="container">
+  <h3 class="mt-5 mb-5">All Companies</h3>
+  {% for company in companies %}
+
+  <div class="card mb-3" style="">
+    <div class="row no-gutters">
+      <div class="col-md-4">
+        <img
+          src="{{company.company_image.url}}"
+          class="card-img"
+          alt="..."
+          style="height: 250px; object-fit: contain"
+        />
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <br>
+          <h5 class="card-title">{{company.name}}</h5>
+          <p><strong>Email: </strong>{{company.email}}</p>
+          <p><strong>Address: </strong>{{company.address}}</p>
+          <p><strong>Contact: </strong>{{company.mobile}}</p>
+          <p><strong>Website: </strong>{{company.website}}</p>
+        </div>
+       
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+<br />
+{% endblock %}

@@ -121,19 +121,19 @@ class EmployerJobCreateForm(forms.ModelForm):
         fields = ['title', 'image', 'category', 'job_type', 'level', 'deadline', 'vaccncy_number',
                   'education', 'skills', 'details', 'experience', 'salary']
 
-        widgets = {'title': forms.TextInput(attrs={'class':'form-control'}),
-         'image': forms.FileInput(attrs={'class':'form-control'}), 
-         'category': forms.Select(attrs={'class':'form-control'}), 
-         'job_type': forms.Select(attrs={'class':'form-control'}), 
-         'level': forms.Select(attrs={'class':'form-control'}), 
-         'deadline': forms.DateInput(attrs={'class':'form-control'}), 
-         'vaccncy_number': forms.NumberInput(attrs={'class':'form-control'}), 
-         'education': forms.TextInput(attrs={'class':'form-control'}), 
-         'skills': forms.TextInput(attrs={'class':'form-control'}), 
-         'details': forms.TextInput(attrs={'class':'form-control'}), 
-         'experience': forms.TextInput(attrs={'class':'form-control'}), 
-         'salary': forms.TextInput(attrs={'class':'form-control'})
-         }
+        widgets = {'title': forms.TextInput(attrs={'class': 'form-control '}),
+                   'image': forms.FileInput(attrs={'class': 'form-control'}),
+                   'category': forms.Select(attrs={'class': 'form-control'}),
+                   'job_type': forms.Select(attrs={'class': 'form-control'}),
+                   'level': forms.Select(attrs={'class': 'form-control'}),
+                   'deadline': forms.DateInput(attrs={'class': 'form-control '}),
+                   'vaccncy_number': forms.NumberInput(attrs={'class': 'form-control'}),
+                   'education': forms.TextInput(attrs={'class': 'form-control'}),
+                   'skills': forms.TextInput(attrs={'class': 'form-control'}),
+                   'details': forms.TextInput(attrs={'class': 'form-control'}),
+                   'experience': forms.TextInput(attrs={'class': 'form-control'}),
+                   'salary': forms.TextInput(attrs={'class': 'form-control'})
+                   }
 
 
 class EmployerJobUpdateForm(forms.ModelForm):
@@ -143,19 +143,19 @@ class EmployerJobUpdateForm(forms.ModelForm):
         fields = ['title', 'image', 'category', 'job_type', 'level', 'deadline', 'vaccncy_number',
                   'education', 'skills', 'details', 'experience', 'salary']
 
-        widgets = {'title': forms.TextInput(attrs={'class':'form-control'}),
-         'image': forms.FileInput(attrs={'class':'form-control'}), 
-         'category': forms.TextInput(attrs={'class':'form-control'}), 
-         'job_type': forms.Select(attrs={'class':'form-control'}), 
-         'level': forms.Select(attrs={'class':'form-control'}), 
-         'deadline': forms.DateInput(attrs={'class':'form-control'}), 
-         'vaccncy_number': forms.NumberInput(attrs={'class':'form-control'}), 
-         'education': forms.TextInput(attrs={'class':'form-control'}), 
-         'skills': forms.TextInput(attrs={'class':'form-control'}), 
-         'details': forms.TextInput(attrs={'class':'form-control'}), 
-         'experience': forms.TextInput(attrs={'class':'form-control'}), 
-         'salary': forms.TextInput(attrs={'class':'form-control'})
-         }
+        widgets = {'title': forms.TextInput(attrs={'class': 'form-control'}),
+                   'image': forms.FileInput(attrs={'class': 'form-control'}),
+                   'category': forms.TextInput(attrs={'class': 'form-control'}),
+                   'job_type': forms.Select(attrs={'class': 'form-control'}),
+                   'level': forms.Select(attrs={'class': 'form-control'}),
+                   'deadline': forms.DateInput(attrs={'class': 'form-control'}),
+                   'vaccncy_number': forms.NumberInput(attrs={'class': 'form-control'}),
+                   'education': forms.TextInput(attrs={'class': 'form-control'}),
+                   'skills': forms.TextInput(attrs={'class': 'form-control'}),
+                   'details': forms.TextInput(attrs={'class': 'form-control'}),
+                   'experience': forms.TextInput(attrs={'class': 'form-control'}),
+                   'salary': forms.TextInput(attrs={'class': 'form-control'})
+                   }
 
 
 class EmployerProfileUpdateForm(forms.ModelForm):
