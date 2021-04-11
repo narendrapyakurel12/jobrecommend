@@ -1,0 +1,10 @@
+{% extends 'admintemplates/adminbase.html' %}
+{% block content %}
+<div class="main">
+<form method="post">
+	{% csrf_token %}
+	{{form.as_p}}
+	<button class="btn btn-primary">Change Status</button>
+</form>
+</div>
+{% endblock %}

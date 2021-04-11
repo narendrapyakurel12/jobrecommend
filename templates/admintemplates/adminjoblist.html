@@ -1,5 +1,6 @@
 {% extends 'admintemplates/adminbase.html' %}
 {% block content %}
+<div class="main">
 <h1>JobList</h1>
 <table class="table">
 	<thead>
@@ -7,6 +8,7 @@
 			<th>Sn</th>
 			<th>JobTitle</th>
 			<th>Image</th>
+			<th>Status</th>
 		
 		</tr>
 
@@ -19,6 +21,7 @@
 			<td>{{forloop.counter}}</td>
 			<td><a href="{% url 'jobapp:adminjobdetail' job.id %}">{{job.title}}</td>
 			<td><img src="{{job.image.url}}" width="200"></td>
+			<td>{% if not job.status == 'completed' %}<a href="{% url 'jobapp:adminjobstatuschange' job.id %}">{{job.status}} {% else %}<button type="button" class="btn btn-success">Completed</button>{% endif %}</a></td>
 			
 		</tr>
 		{% endfor %}
@@ -26,5 +29,6 @@
 	
 
 </table>
+</div>
 
 {% endblock %}

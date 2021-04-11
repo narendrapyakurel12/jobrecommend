@@ -4,8 +4,13 @@ from django.db.models import Q
 from django.urls import reverse, reverse_lazy
 from .models import *
 from .forms import *
+from django.http import HttpResponse
+from django.template.loader import render_to_string
+from weasyprint import HTML
+import tempfile
 from django.contrib.auth import authenticate, login, logout
 from django.core.paginator import Paginator
+from jobapp.jobrecommend import *
 
 
 class EmployerRequiredMixin(object):
@@ -16,6 +21,15 @@ class EmployerRequiredMixin(object):
         else:
             return redirect('/login/')
 
+        return super().dispatch(request, *args, **kwargs)
+class JobSeekerRequiredMixin(object):
+    
+    def dispatch(self, request, *args, **kwargs):
+
+        if request.user.is_authenticated and request.user.groups.filter(name='jobseeker').exists():
+            pass
+        else:
+            return redirect('jobapp:jobseekerlogin')
         return super().dispatch(request, *args, **kwargs)
 
 
@@ -37,7 +51,7 @@ class JobseekerHomeView(TemplateView):
         context['jobcategorys'] = JobCategory.objects.all()
         context['employers'] = Employer.objects.all()
 
-        context['jobs'] = Job.objects.all().order_by('-id')
+        context['jobs'] = Job.objects.filter(status='completed').order_by('-id')
         return context
 
 
@@ -73,7 +87,7 @@ class JobSeekerLoginView(FormView):
     def get_success_url(self):
         user = self.thisuser
         if user.groups.filter(name='jobseeker').exists():
-            return reverse('jobapp:jobseekerhome')
+            return reverse('jobapp:jobseekerprofile')
         elif user.groups.filter(name='employer').exists():
             return reverse('jobapp:employerhome')
         elif user.groups.filter(name='admin').exists():
@@ -99,17 +113,12 @@ class JobDetailView(DetailView):
         return context
 
 
-class JobSeekerJobApplyView(CreateView):
+class JobSeekerJobApplyView(JobSeekerRequiredMixin,CreateView):
     template_name = 'jobseekertemplates/jobseekerjobapply.html'
     form_class = JobApplyForm
     success_url = reverse_lazy('jobapp:jobseekerprofile')
 
-    def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated and request.user.groups.filter(name='jobseeker').exists():
-            pass
-        else:
-            return redirect('jobapp:jobseekerlogin')
-        return super().dispatch(request, *args, **kwargs)
+
 
     def form_valid(self, form):
         job_id = self.kwargs['pk']
@@ -121,28 +130,30 @@ class JobSeekerJobApplyView(CreateView):
         return super().form_valid(form)
 
 
-class JobSeekerProfileView(TemplateView):
+class JobSeekerProfileView(JobSeekerRequiredMixin,TemplateView):
     template_name = 'jobseekertemplates/jobseekerprofile.html'
-
-    def dispatch(self, request, *args, **kwargs):
-        user = request.user
-        if user.is_authenticated and user.groups.filter(name='jobseeker'):
-            pass
-        else:
-            return redirect('jobapp:jobseekerlogin')
-
-        return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         logged_user = self.request.user
         jobseeker = JobSeeker.objects.get(user=logged_user)
-        print(jobseeker, 'jobseeker')
+        text1=jobseeker.skills
+        jobs=Job.objects.all()
+        match_jobs=[]
+        for job in jobs:
+
+            match_value=match_job(text1,job.skills)
+       
+            if match_value>0.5:
+                match_jobs.append(job)
+        # context['match_value']=match_value
+        context['jobrecommend']=match_jobs
+
         context['jobseeker'] = jobseeker
         return context
 
 
-class JobseekerProfileUpdateView(UpdateView):
+class JobseekerProfileUpdateView(JobSeekerRequiredMixin,UpdateView):
     template_name = 'jobseekertemplates/jobseekerprofileupdate.html'
     model = JobSeeker
     form_class = JobseekerProfileUpdateForm
@@ -172,8 +183,13 @@ class AdminLoginView(FormView):
         return super().form_valid(form)
 
 
-class CVBuilderView(TemplateView):
+class CVBuilderView(CreateView):
     template_name = "jobseekertemplates/cv_builder.html"
+    form_class = CvBuidlerForm
+    success_url=reverse_lazy('jobapp:generate_pdf')
+
+
+
 
 
 class EmployerRegistrationView(CreateView):
@@ -289,14 +305,25 @@ class AdminJobSeekerDetailView(DetailView):
 
 class AdminJobListView(ListView):
     template_name = 'admintemplates/adminjoblist.html'
-    model = Job
+    model=Job
     context_object_name = 'jobobject'
+
+    def get_queryset(self):
+        job=Job.objects.all().order_by('-id')
+        return job
 
 
 class AdminJobDetailView(DetailView):
     template_name = 'admintemplates/adminjobdetail.html'
     model = Job
     context_object_name = 'jobdetailobject'
+class AdminJobStatusChange(UpdateView):
+    template_name = 'admintemplates/adminjobstatuschange.html'
+    model = Job
+    form_class = AdminJobSatusChangeForm
+    success_url = reverse_lazy('jobapp:adminjoblist')
+
+
 
 
 class SearchView(TemplateView):
@@ -333,10 +360,30 @@ class JobView(TemplateView):
         return context
 
 
+
 class CompanyView(TemplateView):
     template_name = 'jobseekertemplates/company.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['companies'] = Employer.objects.all().order_by('-id')
-        return context
+        return context   
+
+def generate_pdf(request):
+    last_cv_builder_user=ResumeBuilder.objects.last()
+    html_string=render_to_string('jobseekertemplates/home_page.html',{'last_cv_builder':last_cv_builder_user})
+    html=HTML(string=html_string)
+    result=html.write_pdf()
+    response = HttpResponse(content_type='application/pdf;')
+    response['Content-Disposition'] = 'inline; filename=list_people.pdf'
+    response['Content-Transfer-Encoding'] = 'binary'
+    with tempfile.NamedTemporaryFile(delete=True) as output:
+        output.write(result)
+        output.flush()
+        output = open(output.name, 'rb')
+        response.write(output.read())
+
+    return response
+  
+
+

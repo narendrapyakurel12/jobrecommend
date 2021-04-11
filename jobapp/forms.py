@@ -33,7 +33,7 @@ class JobSeekerRegistrationForm(forms.ModelForm):
         if user.exists():
             print('1')
             raise forms.ValidationError(
-                'JobSeeker with this user name already exitst please choose different name')
+                f"{username} with this user name already exitst please choose different name")
         return username
 
     def clean_confirm_password(self):
@@ -178,3 +178,15 @@ class EmployerProfileUpdateForm(forms.ModelForm):
 class AdminLoginForm(forms.Form):
     username = forms.CharField(widget=forms.TextInput())
     password = forms.CharField(widget=forms.PasswordInput())
+class AdminJobSatusChangeForm(forms.ModelForm):
+    class Meta:
+        model = Job
+        fields='__all__'
+
+class CvBuidlerForm(forms.ModelForm):
+    class Meta:
+        model=ResumeBuilder
+        fields='__all__'
+ 
+ 
+

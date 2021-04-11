@@ -1,49 +1,110 @@
 {% extends 'jobseekertemplates/base.html' %}
-{% block title %}My Profile{% endblock %}
 {% block content %}
-<div class="container">
-	<h3>My Profile</h3>
-	<hr>
-	<div class="row">
-		<div class="col-md-4"><img src="{{jobseeker.image.url}}" alt="" class="img-fluid"></div>
-		<div class="col-md-8 mx-auto">
-			<h4>Username: {{jobseeker}}</h4>
-			<p>Full Name: {{jobseeker.name}}</p>
-			<p>Email: {{jobseeker.email}}</p>
-			<p>Address: {{jobseeker.address}}</p>
-			<p>Mobile: {{jobseeker.mobile}}</p>
-			<p>Qualification: {{jobseeker.qualification}}</p>
-			<p>Skills: {{jobseeker.skills}}</p>
-			<p>About: {{jobseeker.about}}</p>
-			<p>CV: {{jobseeker.cv}}</p>
+<h3>My Profile</h3>
+<hr>
+<h4>Name:{{jobseeker}}</h4>
+{{jobseeker.address}}
+<a href="{% url 'jobapp:jobseekerprofileupdate' jobseeker.id %}">UpdateProfile</a>
+{% comment %}
+<!-- <a href="{% url 'jobapp:jobseekerpasswordchange' %}">ChangePassword</a> -->
+{% endcomment %}
+<h3>Job I have Applied</h3>
+</hr>
 
-			<button class="btn btn-warning"><a
-					href="{% url 'jobapp:jobseekerprofileupdate' jobseeker.id %}">UpdateProfile</a></button>
-		</div>
-		<h3>Applied Job</h3>
-		<hr>
-		<table class='table'>
-			<thead>
-				<tr>
-					<th>SN</th>
-					<th>JobTitle</th>
-					<th>Company</th>
-					<th>Date</th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for jobapplication in jobseeker.jobapplication_set.all %}
-				<tr>
-					<td>{{forloop.counter}}</td>
-					<td>{{jobapplication.job.title}}</td>
-					<td>{{jobapplication.job.employer.compnay}}</td>
-					<td>{{jobapplication.created_at}}</td>
-				</tr>
-				{% endfor %}
-			</tbody>
-		</table>
-	</div>
-</div>
+<table class='table'>
+	<thead>
+		<tr>
+		<th>SN</th>
+		<th>JobTitle</th>
+		<th>Company</th>
+		<th>Date</th>
+        <th>Skills</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for jobapplication in jobseeker.jobapplication_set.all %}
+	
+		<tr>
+			<td>{{forloop.counter}}</td>
+			<td>{{jobapplication.job.title}}</td>
+			<td>{{jobapplication.job.employer.name}}</td>
+            <td>{{jobapplication.created_at}}</td>
+            <td>{{jobapplication.job.skills}}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+<hr>
+{% if jobrecommend %}
+matching job with you
+<table class="table">
+	<thead>
+		<tr>
+			<th>Job Positon</th>
+				<th>Company</th>
+				<th>Job Title</th>
+                <th>Deadline</th>
+                <th>skills</th>
+				<th>View Detail</th>
+
+		</tr>
+		
+	</thead>
+	<tbody>
+            {% for job in jobrecommend %}
+			<tr class="table-active">
+                <td>{{job.job_type}}</td>
+                <td>{{job.employer.name}}</td>
+                <td>{{job.title}}</td>
+                <td>{{job.deadline}}</td>
+                <td>{{job.skills}}</td>
+                <td>
+
+                       <button type="button" class="btn btn-info" data-toggle="modal" data-target="#{{job.id}}">
+                        Details
+                    </button>
+                       <div class="modal fade" id="{{job.id}}" data-backdrop="static" data-keyboard="false"
+                         tabindex="-1"
+                         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabel">{{job.title}}</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Company Name: <small>{{job.employer.name}}</small></p>
+                                    <p>Address: <small>{{job.employer.address}}</small></p>
+                                    <p>Salary: <small>{{job.salary}}</small></p>
+                                    <p>Job Type: <small>{{job.job_type}}</small></p>
+                                    <p>Description: <small>{{job.details}}small></p>
+                                    <p>Education: <small>{{job.education}}</small></p>
+                                    <p>Career level: <small>{{job.level}}</small></p>
+                                    <p>Experience: <small>{{job.experience}}</small></p>
+                                    <p>Qualification; <small>{{job.employer.qualification}}</small></p>
+                                    <p>Last Date to Apply: <small>{{job.deadline}}|</small></p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <!-- <a href="{% url 'jobapp:jobseekerjobapply' job.id %}">Apply</a> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                </td>
+            
+            </tr>
+            {% endfor %}
+		
+	</tbody>
+		
+
+</table>
+{% endif %}
+
 
 
 {% endblock %}

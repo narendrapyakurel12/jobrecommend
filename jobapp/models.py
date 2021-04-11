@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User, Group
-from datetime import datetime
+from datetime import date, datetime
 from .validators import validate_file
 
 # Create your models here.
@@ -83,6 +83,8 @@ class JobCategory(TimeStamp):
 JOB_TYPE = (('full_time', 'Full Time'), ('part_time', 'Part Time'),
             ('contact', 'Contact'), ('internship', 'Internship'),)
 LEVEL = (('junior', 'Junior'), ('mid', 'Mid'), ('seneior', 'Seneior'),)
+STATUS=(('pending','Pending'),('completed','Completed'))
+
 
 
 class Job(TimeStamp):
@@ -99,6 +101,7 @@ class Job(TimeStamp):
     details = models.TextField()
     experience = models.CharField(max_length=100, null=True, blank=True)
     salary = models.CharField(max_length=100, null=True, blank=True)
+    status=models.CharField(max_length=50,choices=STATUS,default='Pending')
     views_count = models.PositiveIntegerField(default=0)
 
     def __str__(self):
@@ -112,3 +115,27 @@ class JobApplication(TimeStamp):
 
     def __str__(self):
         return self.jobseeker.user.username
+
+
+class ResumeBuilder(TimeStamp):
+    first_name=models.CharField(max_length=100)
+    last_name=models.CharField(max_length=100)
+    email=models.EmailField()
+    city=models.CharField(max_length=100)
+    state=models.CharField(max_length=200)
+    country=models.CharField(max_length=100)
+    phone=models.CharField(max_length=100)
+    state=models.CharField(max_length=100)
+    job_title=models.CharField(max_length=100)
+    company_name=models.CharField(max_length=100)
+    start_date=models.CharField(max_length=100)
+    end_date=models.CharField(max_length=100)
+    degree_type=models.CharField(max_length=100)
+    clz_name=models.CharField(max_length=100)
+    subject=models.CharField(max_length=100)
+    gratuated_year=models.CharField(max_length=100)
+
+
+
+
+

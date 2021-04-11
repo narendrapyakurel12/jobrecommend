@@ -10,45 +10,52 @@
     <br>
     <div class="shadow p-3 mb-5 bg-white rounded">
         <h6>1. Personal Information</h6>
-        <form style="margin-left: 2%;">
+        <form style="margin-left: 2%;" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
             <div class="form-row">
                 <div class="form-group col-md-5">
                     <label for="firstname">First Name</label>
-                    <input type="text" class="form-control" id="firstname">
+                    {{form.first_name}}
+                    <!-- <input type="text" class="form-control" id="firstname"> -->
                 </div>
                 <div class="form-group col-md-5">
                     <label for="lastname">Last Name</label>
-                    <input type="text" class="form-control" id="lastname">
+                    <!-- <input type="text" class="form-control" id="lastname"> -->
+                    {{form.last_name}}
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-5">
                     <label for="inputEmail4">Email</label>
-                    <input type="email" class="form-control" id="inputEmail4">
+                    <!-- <input type="email" class="form-control" id="inputEmail4"> -->
+                    {{form.email}}
                 </div>
                 <div class="form-group col-md-5">
                     <label for="phone">Phone</label>
-                    <input type="tel" class="form-control" id="phone">
+                    <!-- <input type="tel" class="form-control" id="phone"> -->
+                    {{form.phone}}
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="inputCity">City</label>
-                    <input type="text" class="form-control" id="inputCity">
+                    <!-- <input type="text" class="form-control" id="inputCity"> -->
+                    {{form.city}}
                 </div>
                 <div class="form-group col-md-4">
                     <label for="state">State</label>
-                    <input type="text" class="form-control" id="state">
+                    <!-- <input type="text" class="form-control" id="state"> -->
+                    {{form.state}}
 
                 </div>
                 <div class="form-group col-md-2">
                     <label for="country">Country</label>
-                    <input type="text" class="form-control" id="country">
+                    <!-- <input type="text" class="form-control" id="country"> -->
+                    {{form.country}}
                 </div>
             </div>
 
-        </form>
     </div>
 
     <div class="shadow p-3 mb-5 bg-white rounded">
@@ -57,27 +64,30 @@
             <div class="form-row">
                 <div class="form-group col-md-5">
                     <label for="jobtitle">Job Title</label>
-                    <input type="text" class="form-control" id="jobtitle">
+                    <!-- <input type="text" class="form-control" id="jobtitle"> -->
+                    {{form.job_title}}
                 </div>
                 <div class="form-group col-md-5">
                     <label for="companyname">Company Name</label>
-                    <input type="text" class="form-control" id="companyname">
+                    <!-- <input type="text" class="form-control" id="companyname"> -->
+                    {{form.company_name}}
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-5">
                     <label for="startdate">Start Date</label>
-                    <input type="date" class="form-control" id="startdate">
+                    <!-- <input type="date" class="form-control" id="startdate"> -->
+                    {{form.start_date}}
                 </div>
                 <div class="form-group col-md-5">
                     <label for="end_date">End Date</label>
-                    <input type="date" class="form-control" id="end_date">
+                    <!-- <input type="date" class="form-control" id="end_date"> -->
+                    {{form.end_date}}
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary ">Add more workplace</button>
+            <!-- <button type="submit" class="btn btn-primary ">Add more workplace</button> -->
 
             <hr>
-        </form>
     </div>
     <div class="shadow p-3 mb-5 bg-white rounded">
         <h6>3. Education</h6>
@@ -85,34 +95,39 @@
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="degreetype">Degree Type</label>
-                    <select id="degreetype" class="form-control">
+                    {{form.degree_type}}
+                    <!-- <select id="degreetype" class="form-control">
                         <option>Vocational</option>
                         <option>Higher Secondary</option>
                         <option selected>Bachelor's Degree</option>
                         <option>Master's Degree</option>
-                    </select>
+                    </select> -->
 
                 </div>
                 <div class="form-group col-md-5">
                     <label for="schoolname">School Name</label>
-                    <input type="text" class="form-control" id="schoolname">
+                    <!-- <input type="text" class="form-control" id="schoolname"> -->
+                    {{form.clz_name}}
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="subject">Subject</label>
-                    <input type="text" class="form-control" id="subject">
+                    <!-- <input type="text" class="form-control" id="subject"> -->
+                    {{form.subject}}
                 </div>
                 <div class="form-group col-md-5">
                     <label for="graduationyear">Year Graduated</label>
-                    <input type="month" class="form-control" id="graduationyear">
+                    <!-- <input type="month" class="form-control" id="graduationyear"> -->
+                    {{form.gratuated_year}}
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary ">Add another</button>
+            <!-- <button type="submit" class="btn btn-primary ">Add another</button> -->
 
             <hr>
-            <button type="submit" class="btn btn-primary">Buid Resume</button>
+            <button type="Submit" class="btn btn-primary">Buid Resume</a></button>
         </form>
+ 
     </div>
     <hr>
 </div>
