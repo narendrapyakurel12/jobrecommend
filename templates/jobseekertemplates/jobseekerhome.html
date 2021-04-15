@@ -82,6 +82,7 @@
                                             data-dismiss="modal">Close</button>
                                         <a href="{% url 'jobapp:jobseekerjobapply' job.id %}">Apply</a>
                                     </div>
+                            
                                 </div>
                             </div>
                         </div>
@@ -100,7 +101,7 @@
     <br>
 
     <div class="container">
-        <h3 class="text-center">Top Hiring Companies</h3> <br><br>
+        <h3 class="text-center">Latest Job Opening Companies</h3> <br><br>
         <div class="row row-cols-1 row-cols-md-3">
             {% for employer in employers %}
             <div class="col mb-4 col-md-3">
@@ -114,7 +115,7 @@
                         <p class="card-text">Website: {{ employer.website }}</p>
                     </div>
                     <div class="card-footer">
-                        <small class="text-muted">Details</small>
+                        <!-- <small class="text-muted">Details</small> -->
                         
                     </div>
                 </div>

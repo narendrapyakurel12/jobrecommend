@@ -3,12 +3,14 @@
 {% block content %}
 <div class="main">
 <h1>Employer list</h1>
-<table class="table">
+<table class="table table-dark">
 	<thead>
 		<tr>
 			<th>Sn</th>
-			<th>Employer Name:</th>
-			<th>Employer mobile:</th>
+			<th>Employer Name</th>
+			<th>Employer mobile</th>
+			<th>Employer Email</th>
+			<th>Employer Address</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -17,6 +19,9 @@
 			<td>{{forloop.counter}}</td>
 			<td><a href="{% url 'jobapp:adminemployerdetail' employer.id %}">{{employer.name}}</a></td>
 				<td>{{employer.mobile}}</td>
+				<td>{{employer.email}}</td>
+				<td>{{employer.address}}</td>
+
 			
 		</tr>
 		{% endfor %}

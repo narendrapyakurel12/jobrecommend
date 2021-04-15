@@ -8,9 +8,8 @@
 			
 			<img src="{{employer.company_image.url}}" alt="" class="img-fluid">
 			
-		</div>
+		</div>	
 		<div class="col-md-8">
-			<h3>Username: {{employer.user}}</h3>
 			<p><strong>Name: </strong>{{employer.name}} </p>
 			<p><strong>Email: </strong>{{employer.email}} </p>
 			<p><strong>Address: </strong>{{employer.address}} </p>
@@ -29,6 +28,8 @@
 				<th>Job title</th>
 				<th>Deadline</th>
 				<th>Posted on</th>
+				<th>Status</th>
+				<th>Action</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -40,6 +41,12 @@
 				</td>
 				<td>{{job.deadline}}</td>
 				<td>{{job.created_at}}</td>
+				<td>{{job.status}}</td>
+				<td>
+					<a type="button" class="btn btn-warning" href="{% url 'jobapp:employerjobupdate' job.id %}">Update</a>
+					<a  type ="button" class="btn btn-danger" href="{% url 'jobapp:employerjobdelete' job.id %}">Delete</a>
+
+				</td>
 			</tr>
 			{% endfor %}
 		</tbody>

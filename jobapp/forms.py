@@ -1,6 +1,6 @@
 from django import forms
 from .models import *
-from django.forms import ValidationError
+from django.forms import ValidationError, widgets
 
 
 class JobSeekerRegistrationForm(forms.ModelForm):
@@ -21,7 +21,7 @@ class JobSeekerRegistrationForm(forms.ModelForm):
                    'mobile': forms.TextInput(attrs={'class': 'form-control'}),
                    'image': forms.FileInput(attrs={'class': 'form-control'}),
                    'qualification': forms.TextInput(attrs={'class': 'form-control'}),
-                   'skills': forms.TextInput(attrs={'class': 'form-control'}),
+                   'skills': forms.TextInput(attrs={'class': 'form-control','placeholder':'python,django,javascript,rest framework'}),
                    'about': forms.TextInput(attrs={'class': 'form-control'}),
                    'cv': forms.FileInput(attrs={'class': 'form-control'}),
                    }
@@ -56,6 +56,8 @@ class JobApplyForm(forms.ModelForm):
         widgets = {
             'cover_letter': forms.FileInput(attrs={'class': 'form-control'})
         }
+
+
 
 
 class EmployerForm(forms.ModelForm):
@@ -187,6 +189,7 @@ class CvBuidlerForm(forms.ModelForm):
     class Meta:
         model=ResumeBuilder
         fields='__all__'
+
  
  
 

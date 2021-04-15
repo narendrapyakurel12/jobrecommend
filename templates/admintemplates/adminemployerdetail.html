@@ -2,13 +2,18 @@
 {% block content %}
 <div class="main">
 <h1>AdminEmployerDetail</h1>
-<table class="table">
+<table class="table table-dark">
 	<thead>
 		<tr>
-			<th>EmployerName</th>
-			<th>EmployerAddress</th>
-			<th>Employer mobile</th>
-		</tr>
+			<th>Name</th>
+			<th>Address</th>
+			<th> mobile</th>
+			<th>Email</th>
+			<th>address</th>
+			<th>image</th>
+			<th>Website</th>
+
+		</tr>	
 
 	</thead>
 	<tbody>
@@ -16,6 +21,10 @@
 			<td>{{adminemployerobject.name}}</td>
 			<td>{{adminemployerobject.address}}</td>
 			<td>{{adminemployerobject.mobile}}</td>
+			<td>{{adminemployerobject.email}}</td>
+			<td>{{adminemployerobject.address}}</td>
+			<td><img src="{{adminemployerobject.company_image.url}}"></td>
+			<td>{{adminemployerobject.website}}</td>
 		</tr>
 	</tbody>
 	

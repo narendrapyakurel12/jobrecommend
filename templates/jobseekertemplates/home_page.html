@@ -1,14 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Page Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<title>cv</title>
 </head>
 <body>
-   <h1>{{last_cv_builder.first_name}}</h1>
-    <h2>{{last_cv_builder.last_name}}</h2>
-    <h3>{{last_cv_builder.email}}</h3>
-
-
-
+    <div class="container">
+        <div class="row">
+        <div class="col-md-6">
+        <h1>Personal Information</h1>
+        <p>First Name : {{last_cv_builder.first_name}}</p>
+        <p> Last Name : {{last_cv_builder.last_name}}</p>
+        <p>Email: {{last_cv_builder.email}}</p>
+        <p>Phone:{{last_cv_builder.phone}}</p>
+        <p>Country:{{last_cv_builder.country}}</p>
+        <p>State:{{last_cv_builder.state}}</p>
+        <p>City:{{last_cv_builder.city}}</p>
+        </div>
+        <div class="col-sm">
+        <h1>Education</h1>
+        <p>College Name:{{last_cv_builder.clz_name}}</p>
+        <p>Subject:{{last_cv_builder.subject}}</p>
+        <p>Gratuated_year{{last_cv_builder.gratuated_year}}</p>
+        </div>
+        </div>
+        <h1>Working Experience</h1>
+        Job Title:<p>{{last_cv_builder.job_title}}</p>
+        Company Name:<p>{{last_cv_builder.company_name}}</p>
+        experience:<p>{{last_cv_builder.experience_year}}</p>
+        <h1>Skills</h1>
+        <p>Technicial Skills:{{last_cv_builder.technical_skills}}</p>
+        <p>Non Technicial skills:{{last_cv_builder.non_technical_skills}}</p>
+       
+        </div>
 </body>
 </html>

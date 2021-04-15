@@ -48,8 +48,9 @@ class JobseekerHomeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        user=self.request.user
         context['jobcategorys'] = JobCategory.objects.all()
-        context['employers'] = Employer.objects.all()
+        context['employers'] = Employer.objects.order_by('-id')
 
         context['jobs'] = Job.objects.filter(status='completed').order_by('-id')
         return context
@@ -118,8 +119,6 @@ class JobSeekerJobApplyView(JobSeekerRequiredMixin,CreateView):
     form_class = JobApplyForm
     success_url = reverse_lazy('jobapp:jobseekerprofile')
 
-
-
     def form_valid(self, form):
         job_id = self.kwargs['pk']
         job = Job.objects.get(id=job_id)
@@ -127,7 +126,10 @@ class JobSeekerJobApplyView(JobSeekerRequiredMixin,CreateView):
         job_seeker = JobSeeker.objects.get(user=user)
         form.instance.job = job
         form.instance.jobseeker = job_seeker
+        form.instance.is_applied=True
+        form.save()
         return super().form_valid(form)
+
 
 
 class JobSeekerProfileView(JobSeekerRequiredMixin,TemplateView):
@@ -139,6 +141,7 @@ class JobSeekerProfileView(JobSeekerRequiredMixin,TemplateView):
         jobseeker = JobSeeker.objects.get(user=logged_user)
         text1=jobseeker.skills
         jobs=Job.objects.all()
+
         match_jobs=[]
         for job in jobs:
 
@@ -265,6 +268,10 @@ class EmployerJobUpdateView(EmployerRequiredMixin, UpdateView):
         form.save()
 
         return super().form_valid(form)
+class EmployerJobDeleteView(EmployerRequiredMixin,DeleteView):
+    template_name='employertemplates/employerjobdelete.html'
+    model=Job
+    success_url=reverse_lazy('jobapp:employerprofile')
 
 
 class AdminHomeView(AdminRequiredMixin, TemplateView):
@@ -353,7 +360,7 @@ class JobView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        jobs = Job.objects.all().order_by('-id')
+        jobs = Job.objects.filter(status='completed').order_by('-id')
         paginator = Paginator(jobs, 3)
         context['jobs'] = jobs
 
@@ -375,7 +382,7 @@ def generate_pdf(request):
     html=HTML(string=html_string)
     result=html.write_pdf()
     response = HttpResponse(content_type='application/pdf;')
-    response['Content-Disposition'] = 'inline; filename=list_people.pdf'
+    response['Content-Disposition'] = 'inline; filename=your_cv.pdf'
     response['Content-Transfer-Encoding'] = 'binary'
     with tempfile.NamedTemporaryFile(delete=True) as output:
         output.write(result)

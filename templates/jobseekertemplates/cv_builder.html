@@ -1,135 +1,41 @@
 {% extends 'jobseekertemplates/base.html' %}
 {% block title %} CV Builder {% endblock%}
+{% load crispy_forms_tags %}
 
 {% block content %}
-
-<h1 style="margin-left: 15%;">
-    Resume Builder
-</h1>
-<div class="container border">
-    <br>
-    <div class="shadow p-3 mb-5 bg-white rounded">
-        <h6>1. Personal Information</h6>
-        <form style="margin-left: 2%;" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="form-row">
-                <div class="form-group col-md-5">
-                    <label for="firstname">First Name</label>
-                    {{form.first_name}}
-                    <!-- <input type="text" class="form-control" id="firstname"> -->
-                </div>
-                <div class="form-group col-md-5">
-                    <label for="lastname">Last Name</label>
-                    <!-- <input type="text" class="form-control" id="lastname"> -->
-                    {{form.last_name}}
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-5">
-                    <label for="inputEmail4">Email</label>
-                    <!-- <input type="email" class="form-control" id="inputEmail4"> -->
-                    {{form.email}}
-                </div>
-                <div class="form-group col-md-5">
-                    <label for="phone">Phone</label>
-                    <!-- <input type="tel" class="form-control" id="phone"> -->
-                    {{form.phone}}
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group col-md-4">
-                    <label for="inputCity">City</label>
-                    <!-- <input type="text" class="form-control" id="inputCity"> -->
-                    {{form.city}}
-                </div>
-                <div class="form-group col-md-4">
-                    <label for="state">State</label>
-                    <!-- <input type="text" class="form-control" id="state"> -->
-                    {{form.state}}
-
-                </div>
-                <div class="form-group col-md-2">
-                    <label for="country">Country</label>
-                    <!-- <input type="text" class="form-control" id="country"> -->
-                    {{form.country}}
-                </div>
-            </div>
-
+<div class="container">
+<form method="post" novalidate>
+    {% csrf_token %}
+    <div class="row">
+      <div class="col-6">
+        {{ form.first_name|as_crispy_field }}
+      </div>
+      <div class="col-6">
+        {{ form.last_name|as_crispy_field }}
+      </div>
+      <div class="col-6">
+      {{form.technical_skills|as_crispy_field}}
     </div>
-
-    <div class="shadow p-3 mb-5 bg-white rounded">
-        <h6>2. Work History</h6>
-        <form style="margin-left: 2%;">
-            <div class="form-row">
-                <div class="form-group col-md-5">
-                    <label for="jobtitle">Job Title</label>
-                    <!-- <input type="text" class="form-control" id="jobtitle"> -->
-                    {{form.job_title}}
-                </div>
-                <div class="form-group col-md-5">
-                    <label for="companyname">Company Name</label>
-                    <!-- <input type="text" class="form-control" id="companyname"> -->
-                    {{form.company_name}}
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-5">
-                    <label for="startdate">Start Date</label>
-                    <!-- <input type="date" class="form-control" id="startdate"> -->
-                    {{form.start_date}}
-                </div>
-                <div class="form-group col-md-5">
-                    <label for="end_date">End Date</label>
-                    <!-- <input type="date" class="form-control" id="end_date"> -->
-                    {{form.end_date}}
-                </div>
-            </div>
-            <!-- <button type="submit" class="btn btn-primary ">Add more workplace</button> -->
-
-            <hr>
+    <div class="col-6">
+      {{form.non_technical_skills|as_crispy_field}}
+      </div>
+      {{form.email|as_crispy_field}}
+      {{form.city|as_crispy_field}}
+      {{form.state|as_crispy_field}}
+      {{form.country|as_crispy_field}}
+      {{form.phone|as_crispy_field}}
+      {{form.job_title|as_crispy_field}}
+      {{form.company_name|as_crispy_field}}
+      {{form.experience_year|as_crispy_field}}
+      {{form.degree_type|as_crispy_field}}
+      {{form.clz_name|as_crispy_field}}
+      {{form.subject|as_crispy_field}}
+      {{form.gratuated_year|as_crispy_field}}
     </div>
-    <div class="shadow p-3 mb-5 bg-white rounded">
-        <h6>3. Education</h6>
-        <form style="margin-left: 2%;">
-            <div class="form-row">
-                <div class="form-group col-md-4">
-                    <label for="degreetype">Degree Type</label>
-                    {{form.degree_type}}
-                    <!-- <select id="degreetype" class="form-control">
-                        <option>Vocational</option>
-                        <option>Higher Secondary</option>
-                        <option selected>Bachelor's Degree</option>
-                        <option>Master's Degree</option>
-                    </select> -->
-
-                </div>
-                <div class="form-group col-md-5">
-                    <label for="schoolname">School Name</label>
-                    <!-- <input type="text" class="form-control" id="schoolname"> -->
-                    {{form.clz_name}}
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-4">
-                    <label for="subject">Subject</label>
-                    <!-- <input type="text" class="form-control" id="subject"> -->
-                    {{form.subject}}
-                </div>
-                <div class="form-group col-md-5">
-                    <label for="graduationyear">Year Graduated</label>
-                    <!-- <input type="month" class="form-control" id="graduationyear"> -->
-                    {{form.gratuated_year}}
-                </div>
-            </div>
-            <!-- <button type="submit" class="btn btn-primary ">Add another</button> -->
-
-            <hr>
-            <button type="Submit" class="btn btn-primary">Buid Resume</a></button>
-        </form>
- 
-    </div>
-    <hr>
+    <button type="submit" class="btn btn-success">Save person</button>
+  </form>
 </div>
 
 {% endblock %}
+
+

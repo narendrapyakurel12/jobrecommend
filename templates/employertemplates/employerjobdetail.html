@@ -29,7 +29,7 @@
 			{% for application in jobobject.jobapplication_set.all %}
 			<tr>
 				<td>{{forloop.counter}}</td>
-				<td>{{application.jobseeker}}</td>
+				<td>{{application.jobseeker.name}}</td>
 				<td>{{application.created_at}}</td>
 				<td>
 					<button class="btn btn-warning"> <a href="{{application.jobseeker.cv.url}}" download>Download

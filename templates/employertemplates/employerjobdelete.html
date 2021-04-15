@@ -1,0 +1,11 @@
+
+{% extends 'employertemplates/employerbase.html' %}
+{% block content %}
+<div class="container">
+<form action="" method="post">{% csrf_token %}
+    <p>Are you sure you want to delete "{{ object }}"?</p>
+    <input type="submit" value="Confirm" />
+    <a href="{% url 'jobapp:employerprofile' %}">Cancel</a>
+</form>
+</div>
+{% endblock %}

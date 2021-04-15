@@ -33,6 +33,7 @@ urlpatterns = [
          EmployerProfileUpdateView.as_view(), name='employerprofileupdate'),
     path('employer/job/<int:pk>/update/',
          EmployerJobUpdateView.as_view(), name='employerjobupdate'),
+    path('employer/job/<int:pk>/delete/',EmployerJobDeleteView.as_view(),name='employerjobdelete'),
 
          #admin
     path('job-admin/', AdminHomeView.as_view(), name='adminhome'),

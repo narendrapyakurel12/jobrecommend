@@ -1,13 +1,24 @@
 {% extends 'admintemplates/adminbase.html' %}
 {% block content %}
+<div class="main">
 <h1>JobDetail</h1>
-<table class="table">
+<table class="table table-info">
 	<thead>
 		<tr>
 			<th>Title</th>
 			<th>Image</th>
 			<th>Type</th>
 			<th>Level</th>
+			<th>Cateogry</th>
+			<th>Company</th>
+			<th>deadline</th>
+			<th>vaccency</th>
+			<th>education</th>
+			<th>skills</th>
+			<th>details</th>
+			<th>experience</th>
+			<th>salary</th>
+			<th>Status</th>
 		</tr>
 
 	</thead>
@@ -16,8 +27,20 @@
 	<td><img src="{{jobdetailobject.image.url}}" width="200"></td>
 	<td>{{jobdetailobject.job_type}}</td>
 	<td>{{jobdetailobject.level}}</td>
+	<td>{{jobdetailobject.category}}</td>
+	<td>{{jobdetailobject.employer}}</td>
+	<td>{{jobdetailobject.deadline}}</td>
+	<td>{{jobdetailobject.vaccncy_number}}</td>
+	<td>{{jobdetailobject.education}}</td>
+	<td>{{jobdetailobject.skills}}</td>
+	<td>{{jobdetailobject.details}}</td>
+	<td>{{jobdetailobject.experience}}</td>
+	<td>{{jobdetailobject.salary}}</td>
+	<td>{{jobdetailobject.status}}</td>
+
 
 	</tbody>
 	
 </table>
+</div>
 {% endblock %}

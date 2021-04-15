@@ -1,24 +1,35 @@
 {% extends 'jobseekertemplates/base.html' %}
 {% block content %}
-<h3>My Profile</h3>
-<hr>
-<h4>Name:{{jobseeker}}</h4>
-{{jobseeker.address}}
-<a href="{% url 'jobapp:jobseekerprofileupdate' jobseeker.id %}">UpdateProfile</a>
+<div class="container">
+    <p>Profile</p>
+    <div class="card" style="width:400px">
+      <img class="card-img-top" src="{{jobseeker.image.url}}" alt="Card image" style="width:100%">
+      <div class="card-body">
+        <h4 class="card-title">{{jobseeker.name}}</h4>
+        <p class="card-text">{{jobseeker.about}}</p>
+        <a href="{% url 'jobapp:jobseekerprofileupdate' jobseeker.id %}" class="btn btn-primary">UpdateProfile</a>
+      </div>
+    </div>
+    <br>
+   
 {% comment %}
 <!-- <a href="{% url 'jobapp:jobseekerpasswordchange' %}">ChangePassword</a> -->
 {% endcomment %}
+{% if jobseeker.jobapplication_set.all %}
 <h3>Job I have Applied</h3>
 </hr>
 
-<table class='table'>
+<table class='table table-bordered table-info'>
 	<thead>
 		<tr>
 		<th>SN</th>
-		<th>JobTitle</th>
+        <th>JobTitle</th>
+        <th>Position</th>
+        <th>Salary</th>
 		<th>Company</th>
 		<th>Date</th>
         <th>Skills</th>
+        <th>is_appllied</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -26,23 +37,28 @@
 	
 		<tr>
 			<td>{{forloop.counter}}</td>
-			<td>{{jobapplication.job.title}}</td>
+            <td>{{jobapplication.job.title}}</td>
+            <td>{{jobapplication.job.level}}</td>
+            <td>{{jobapplication.job.salary}}</td>
 			<td>{{jobapplication.job.employer.name}}</td>
             <td>{{jobapplication.created_at}}</td>
             <td>{{jobapplication.job.skills}}</td>
+            <td>{{jobapplication.is_applied}}</td>
 		</tr>
 		{% endfor %}
 	</tbody>
 </table>
+{% endif %}
 <hr>
 {% if jobrecommend %}
-matching job with you
-<table class="table">
+<h2 style="text-align:center;" color="red;">Recommend job with you</h2>
+<table class="table table-bordered table-info">
 	<thead>
 		<tr>
 			<th>Job Positon</th>
 				<th>Company</th>
-				<th>Job Title</th>
+                <th>Job Title</th>
+                <th>Salary</th>
                 <th>Deadline</th>
                 <th>skills</th>
 				<th>View Detail</th>
@@ -53,9 +69,10 @@ matching job with you
 	<tbody>
             {% for job in jobrecommend %}
 			<tr class="table-active">
-                <td>{{job.job_type}}</td>
+                <td>{{job.level}}</td>
                 <td>{{job.employer.name}}</td>
                 <td>{{job.title}}</td>
+                <td>{{job.salary}}</td>
                 <td>{{job.deadline}}</td>
                 <td>{{job.skills}}</td>
                 <td>
@@ -88,7 +105,7 @@ matching job with you
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <!-- <a href="{% url 'jobapp:jobseekerjobapply' job.id %}">Apply</a> -->
+                                    <a href="{% url 'jobapp:jobseekerjobapply' job.id %}">Apply</a>
                                 </div>
                             </div>
                         </div>
@@ -104,6 +121,8 @@ matching job with you
 
 </table>
 {% endif %}
+
+</div>
 
 
 

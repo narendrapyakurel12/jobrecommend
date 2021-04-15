@@ -112,9 +112,12 @@ class JobApplication(TimeStamp):
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
     jobseeker = models.ForeignKey(JobSeeker, on_delete=models.CASCADE)
     cover_letter = models.FileField(upload_to='jobapplication')
+    is_applied=models.BooleanField(default=False,null=True,blank=True)
+    
 
     def __str__(self):
         return self.jobseeker.user.username
+
 
 
 class ResumeBuilder(TimeStamp):
@@ -128,11 +131,12 @@ class ResumeBuilder(TimeStamp):
     state=models.CharField(max_length=100)
     job_title=models.CharField(max_length=100)
     company_name=models.CharField(max_length=100)
-    start_date=models.CharField(max_length=100)
-    end_date=models.CharField(max_length=100)
+    experience_year=models.CharField(max_length=100)
     degree_type=models.CharField(max_length=100)
     clz_name=models.CharField(max_length=100)
     subject=models.CharField(max_length=100)
+    technical_skills=models.TextField(null=True,blank=True)
+    non_technical_skills=models.TextField(null=True,blank=True)
     gratuated_year=models.CharField(max_length=100)
 
 

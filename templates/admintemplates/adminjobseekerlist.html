@@ -4,12 +4,14 @@
 
 <h1>JobSeekerList</h1>
 
-<table class="table">
+<table class="table table-dark">
 	<thead>
 		<tr>
 			<th>Sn</th>
 			<th>name</th>
 			<th>address</th>
+			<th>mobile</th>
+			
 		</tr>
 	</thead>
 	<tbody>
@@ -18,6 +20,8 @@
 			<td>{{forloop.counter}}</td>
 			<td><a href="{% url 'jobapp:adminjobseekerdetail' jobseeker.id %}">{{jobseeker.name}}</td>
 			<td>{{jobseeker.address}}</td>
+			<td>{{jobseeker.mobile}}</td>
+			
 
 		</tr>
 		{% endfor %}

@@ -105,6 +105,7 @@
         </div>
         {% empty %}
         <h1>result is not found</h1>
+       <div> <a href="{% url 'jobapp:jobseekerhome' %}">Go to Home</a></div>
 
         {% endfor %}
 
