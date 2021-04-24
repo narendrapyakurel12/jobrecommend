@@ -14,6 +14,8 @@
                 <div class="col-md-4">
                     <input class="form-control" placeholder="Search Job by title,Category" aria-label="Search"
                         name="search">
+
+                       
                 </div>
                 <div class="col-md-4">
                     <input class="form-control" placeholder="Location" aria-label="Search" name="location">
@@ -23,7 +25,7 @@
             </div>
         </form>
         <div>
-            <button class="btn btn-info"><a href="{% url 'jobapp:cv_builder' %}"> Build Resume</a></button>
+            <button class="btn btn-warning"><a href="{% url 'jobapp:cv_builder' %}"> Build Resume</a></button>
         </div>
 
     </div>
@@ -80,7 +82,11 @@
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
                                             data-dismiss="modal">Close</button>
+
+    
                                         <a href="{% url 'jobapp:jobseekerjobapply' job.id %}">Apply</a>
+                                       
+                                        
                                     </div>
                             
                                 </div>
@@ -126,4 +132,12 @@
     <br><br>
 </main>
 
+{% endblock %}
+{% block js %}
+<script>
+$('#age-min').change(function(){
+    k=$('#age-min option:selected').text();
+    alert(k);
+})
+</script>
 {% endblock %}

@@ -1,4 +1,7 @@
+from django.http.response import HttpResponseRedirect
 from django.views.generic import *
+
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.db.models import Q
 from django.urls import reverse, reverse_lazy
@@ -11,6 +14,10 @@ import tempfile
 from django.contrib.auth import authenticate, login, logout
 from django.core.paginator import Paginator
 from jobapp.jobrecommend import *
+import itertools
+from itertools import chain
+from operator import attrgetter
+
 
 
 class EmployerRequiredMixin(object):
@@ -123,11 +130,21 @@ class JobSeekerJobApplyView(JobSeekerRequiredMixin,CreateView):
         job_id = self.kwargs['pk']
         job = Job.objects.get(id=job_id)
         user = self.request.user
+        job_seeker=JobSeeker.objects.get(user=user)
+        print(job_seeker,'kkk')
+        applicant=JobApplication.objects.filter(jobseeker=job_seeker,job_id=job_id)
+        print(applicant)
+        if applicant.exists():
+            print('ok')
+            messages.info(self.request,"you already applied for this job")
+            return render(self.request,self.template_name,{'form':form})
         job_seeker = JobSeeker.objects.get(user=user)
         form.instance.job = job
         form.instance.jobseeker = job_seeker
         form.instance.is_applied=True
         form.save()
+        messages.success(self.request,'successfully applied')
+        return redirect(self.success_url)
         return super().form_valid(form)
 
 
@@ -140,18 +157,25 @@ class JobSeekerProfileView(JobSeekerRequiredMixin,TemplateView):
         logged_user = self.request.user
         jobseeker = JobSeeker.objects.get(user=logged_user)
         text1=jobseeker.skills
-        jobs=Job.objects.all()
+        jobs=Job.objects.filter(status='completed')
 
         match_jobs=[]
+        # match=[]
         for job in jobs:
 
             match_value=match_job(text1,job.skills)
-       
+            print(type(match_value))
             if match_value>0.5:
                 match_jobs.append(job)
-        # context['match_value']=match_value
+                job.match_value =match_value
+        #         for i in [job.match_value]:
+        #             match.append(i)
+        #             match.sort(reverse=True)
+        # context['match']=match
+        # print(context['match'])
+        
         context['jobrecommend']=match_jobs
-
+        context['match_value']=match_value
         context['jobseeker'] = jobseeker
         return context
 
@@ -242,6 +266,9 @@ class EmployerJobDetailView(EmployerRequiredMixin, DetailView):
     context_object_name = 'jobobject'
 
 
+   
+
+
 class EmployerProfileUpdateView(EmployerRequiredMixin, UpdateView):
     template_name = 'employertemplates/employerprofileupdate.html'
     form_class = EmployerProfileUpdateForm
@@ -260,7 +287,7 @@ class EmployerJobUpdateView(EmployerRequiredMixin, UpdateView):
     template_name = 'employertemplates/employerjobupdate.html'
     form_class = EmployerJobUpdateForm
     model = Job
-    success_url = reverse_lazy('jobapp:employerjobdetail')
+    success_url = reverse_lazy('jobapp:employerprofile')
 
     def form_valid(self, form):
         user = self.request.user
@@ -296,7 +323,6 @@ class AdminEmployerDetailView(DetailView):
     template_name = 'admintemplates/adminemployerdetail.html'
     model = Employer
     context_object_name = 'adminemployerobject'
-
 
 class AdminJobseekerListView(ListView):
     template_name = 'admintemplates/adminjobseekerlist.html'
@@ -391,6 +417,27 @@ def generate_pdf(request):
         response.write(output.read())
 
     return response
-  
 
+class AdminSearchView(TemplateView):
+    template_name='admintemplates/search.html'
+
+    def get_context_data(self, **kwargs):
+        context=super().get_context_data(**kwargs)
+        keyword=self.request.GET.get('q')
+        jobseeker=JobSeeker.objects.filter(name__icontains=keyword)
+        employer=Employer.objects.filter(name__icontains=keyword)
+        inbox = sorted(chain(employer,jobseeker), key=attrgetter('name'))
+        context['results']=inbox
+        return context
+
+class AdminJobseekerDeleteView(DeleteView):
+    template_name='admintemplates/delete.html'
+    model=JobSeeker
+    success_url=reverse_lazy('jobapp:adminjobseekerlist')
+
+
+class AdminEmployerDeleteView(DeleteView):
+    template_name='admintemplates/employerdelete.html'
+    model=Employer
+    success_url=reverse_lazy('jobapp:adminemployerlist')
 

@@ -39,15 +39,19 @@ urlpatterns = [
     path('job-admin/', AdminHomeView.as_view(), name='adminhome'),
     path('admin/employer/list/', AdminEmployerListView.as_view(),
          name='adminemployerlist'),
+   path('admin/employer/<int:pk>/delete/',AdminEmployerDeleteView.as_view(),name='adminemployerdelete'),
     path('admin/employer/<int:pk>/detail/',
          AdminEmployerDetailView.as_view(), name='adminemployerdetail'),
     path('admin/jobseeker/list/', AdminJobseekerListView.as_view(),
          name='adminjobseekerlist'),
     path('admin/jobseeker/<int:pk>/detail/',
          AdminJobSeekerDetailView.as_view(), name='adminjobseekerdetail'),
+    path('admin/jobseeker/<int:pk>/delete/',AdminJobseekerDeleteView.as_view(),name='adminjobseekerdelete'),
+   
     path('admin/job/list/', AdminJobListView.as_view(), name='adminjoblist'),
     path('admin/job/<int:pk>/detail/',
          AdminJobDetailView.as_view(), name='adminjobdetail'),
+
     path('admin/job/status/<int:pk>/change',
          AdminJobStatusChange.as_view(), name='adminjobstatuschange'),
 
@@ -58,5 +62,6 @@ urlpatterns = [
     path('alljob/', JobView.as_view(), name='alljob'),
     path('allcompany/', CompanyView.as_view(), name='allcompany'),
     path('generate/pdf/',views.generate_pdf,name='generate_pdf'),
+    path('admin/search/',AdminSearchView.as_view(),name='adminsearch'),
     
 ]

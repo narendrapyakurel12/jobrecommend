@@ -131,7 +131,7 @@ class EmployerJobCreateForm(forms.ModelForm):
                    'deadline': forms.DateInput(attrs={'class': 'form-control '}),
                    'vaccncy_number': forms.NumberInput(attrs={'class': 'form-control'}),
                    'education': forms.TextInput(attrs={'class': 'form-control'}),
-                   'skills': forms.TextInput(attrs={'class': 'form-control'}),
+                   'skills': forms.TextInput(attrs={'class': 'form-control','placeholder':'python,django,react'}),
                    'details': forms.TextInput(attrs={'class': 'form-control'}),
                    'experience': forms.TextInput(attrs={'class': 'form-control'}),
                    'salary': forms.TextInput(attrs={'class': 'form-control'})

@@ -2,6 +2,7 @@
 {% extends 'admintemplates/adminbase.html' %}
 {% block content %}
 <div class="main">
+
 <h1>Employer list</h1>
 <table class="table table-dark">
 	<thead>
@@ -11,16 +12,21 @@
 			<th>Employer mobile</th>
 			<th>Employer Email</th>
 			<th>Employer Address</th>
+			<th>Action</th>
 		</tr>
 	</thead>
 	<tbody>
 		{% for employer in adminemployer %}
 		<tr>
 			<td>{{forloop.counter}}</td>
-			<td><a href="{% url 'jobapp:adminemployerdetail' employer.id %}">{{employer.name}}</a></td>
+			<td>{{employer.name}}</td>
 				<td>{{employer.mobile}}</td>
 				<td>{{employer.email}}</td>
 				<td>{{employer.address}}</td>
+				<td><a href="{% url 'jobapp:adminemployerdetail' employer.id %}">Detail</a>|
+					<a href="{% url 'jobapp:adminemployerdelete' employer.id %}">Delete</a>
+	
+				</td>
 
 			
 		</tr>

@@ -4,7 +4,16 @@
 
 {% endblock %}
 {% block content %}
+
 <div class="main">
+    <br>
+    <form method='GET' action="{% url 'jobapp:adminsearch' %}">
+        <input type="text" name="q" placeholder="Jobseeker Name,Company Name"/ class="form-control">
+        <!-- <input type="submit"  value="Search"/> -->
+        <hr>
+        <button class="btn btn-primary" type="submit">Search</button>
+      </form>
+      <br>
 <div class="row">
 	<div class="col-md-3 bg-success p-3">
 		<h3 class="text-center text-white">{{allemployers.count}}</h3>
@@ -131,4 +140,4 @@ for (i = 0; i < dropdown.length; i++) {
   });
 }
 </script>
-{% endblock %}
+{% endblock %}  

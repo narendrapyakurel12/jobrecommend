@@ -11,6 +11,7 @@
 			<th>name</th>
 			<th>address</th>
 			<th>mobile</th>
+			<th>Action</th>
 			
 		</tr>
 	</thead>
@@ -18,9 +19,11 @@
 		{% for jobseeker in jobseekerobject %}
 		<tr>
 			<td>{{forloop.counter}}</td>
-			<td><a href="{% url 'jobapp:adminjobseekerdetail' jobseeker.id %}">{{jobseeker.name}}</td>
+			<td>{{jobseeker.name}}</td>
 			<td>{{jobseeker.address}}</td>
 			<td>{{jobseeker.mobile}}</td>
+			<td><a href="{% url 'jobapp:adminjobseekerdelete' jobseeker.id %}">Delete</a>|
+			<a href="{% url 'jobapp:adminjobseekerdetail' jobseeker.id %}">Detail</td>
 			
 
 		</tr>
